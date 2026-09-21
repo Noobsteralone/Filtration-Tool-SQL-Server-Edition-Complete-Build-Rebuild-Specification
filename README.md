@@ -16,6 +16,12 @@ React (Ant Design)  --->  FastAPI (Python)  --->  SQL Server (LAP-S2M059)
 No MySQL/PostgreSQL/SQLite/MongoDB, no S3, no cloud dependency. SQL Server
 is the single authoritative datastore.
 
+> **Already have Python/Node/the ODBC driver installed and just want to
+> run it?** See **[QUICKSTART_WINDOWS.md](QUICKSTART_WINDOWS.md)** --
+> double-click `scripts\windows\setup.bat` once, then
+> `scripts\windows\start_all.bat` every time. The sections below explain
+> the same steps by hand, plus full setup from scratch.
+
 ---
 
 ## 1. Repository layout
