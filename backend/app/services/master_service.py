@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 
 from app.models.job import Job, JobColumn
 from app.models.master import MasterEmail, MasterFile, OtherTLDMaster
-from app.utils.identifiers import quote_ident
+from app.utils.identifiers import quote_alias, quote_ident
 
 ROLE_TO_MERGE_PARAM = {
     "NAME": "NameColumn",
@@ -98,7 +98,7 @@ def merge_job_into_master(
     additional_sql = None
     if other_columns:
         additional_sql = ", ".join(
-            f"s.{quote_ident(jc.SqlColumnName)} AS {quote_ident(jc.OriginalName)}" for jc in other_columns
+            f"s.{quote_ident(jc.SqlColumnName)} AS {quote_alias(jc.OriginalName)}" for jc in other_columns
         )
 
     params = {

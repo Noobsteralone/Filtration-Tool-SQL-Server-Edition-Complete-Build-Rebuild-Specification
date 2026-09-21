@@ -17,7 +17,7 @@ import pyodbc
 
 from app.filtration.reason_codes import KEPT_CODE, display_name, output_filename
 from app.models.job import JobColumn
-from app.utils.identifiers import quote_ident
+from app.utils.identifiers import quote_alias, quote_ident
 
 logger = logging.getLogger("ft.report_service")
 
@@ -32,7 +32,7 @@ def _select_columns_sql(job_columns: list[JobColumn]) -> tuple[str, list[str]]:
     select_parts = []
     headers = []
     for jc in job_columns:
-        select_parts.append(f"s.{quote_ident(jc.SqlColumnName)} AS {quote_ident(jc.OriginalName)}")
+        select_parts.append(f"s.{quote_ident(jc.SqlColumnName)} AS {quote_alias(jc.OriginalName)}")
         headers.append(jc.OriginalName)
     return ", ".join(select_parts), headers
 

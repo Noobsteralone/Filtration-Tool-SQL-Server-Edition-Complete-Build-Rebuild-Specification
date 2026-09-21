@@ -33,9 +33,32 @@ def assert_safe_identifier(name: str) -> str:
 
 
 def quote_ident(name: str) -> str:
-    """Bracket-quote an already-validated identifier for use in dynamic SQL."""
+    """Bracket-quote an already-validated identifier (a real SQL table/
+    column name we generated ourselves, e.g. via sanitize_column_name) for
+    use in dynamic SQL."""
     assert_safe_identifier(name)
     return f"[{name}]"
+
+
+_MAX_ALIAS_LEN = 400
+
+
+def quote_alias(text: str) -> str:
+    """
+    Bracket-quotes arbitrary display text -- e.g. an uploaded file's
+    ORIGINAL column header (which may contain spaces, punctuation, etc.
+    and is never used as a real identifier) -- for safe use as a SQL
+    alias or FOR JSON PATH key name.
+
+    Unlike quote_ident, this does not require the strict identifier
+    character class: only ']' needs escaping to stay inside the bracket,
+    by doubling it, exactly mirroring what T-SQL's own QUOTENAME()
+    function does. This keeps report/master-merge column headers
+    human-readable (e.g. "Company ID" -> [Company ID]) while remaining
+    just as safe against injection as quote_ident.
+    """
+    safe = (text or "")[:_MAX_ALIAS_LEN].replace("]", "]]")
+    return f"[{safe}]"
 
 
 def staging_table_name(job_id: int) -> str:
