@@ -111,7 +111,7 @@ BEGIN
         JobID           INT NOT NULL,
         ReasonCode      NVARCHAR(50) NOT NULL,
         DisplayName     NVARCHAR(100) NOT NULL,
-        RowCount        INT NOT NULL CONSTRAINT DF_FT_JobResults_RowCount DEFAULT (0),
+        [RowCount]      INT NOT NULL CONSTRAINT DF_FT_JobResults_RowCount DEFAULT (0),
         OutputFilePath  NVARCHAR(1000) NULL,
         CreatedAt       DATETIME2 NOT NULL CONSTRAINT DF_FT_JobResults_CreatedAt DEFAULT (SYSUTCDATETIME()),
         CONSTRAINT FK_FT_JobResults_Job FOREIGN KEY (JobID) REFERENCES dbo.FT_Jobs(JobID)

@@ -21,7 +21,7 @@ BEGIN
         DECLARE @sql NVARCHAR(MAX) = N'
             SELECT
                 COALESCE(ReasonCode, ''KEPT'') AS ReasonCode,
-                COUNT(*) AS RowCount
+                COUNT(*) AS [RowCount]
             FROM ' + QUOTENAME(@StagingTable) + N'
             GROUP BY ReasonCode;';
         EXEC sp_executesql @sql;
