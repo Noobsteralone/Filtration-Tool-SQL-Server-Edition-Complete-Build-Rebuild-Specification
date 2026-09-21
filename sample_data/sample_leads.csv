@@ -1,0 +1,21 @@
+Email,Name,Source,Title,Company,Industry,Country,LinkedIn
+john.smith@acme.com,John Smith,Lead411,Manager,Acme Corp,Manufacturing,USA,linkedin.com/in/johnsmith
+JANE.DOE@ACME.COM ,Jane Doe,Lead411,Director,Acme Corp,Manufacturing,USA,linkedin.com/in/janedoe
+john.smith@acme.com,John Smith,Lead411,Manager,Acme Corp,Manufacturing,USA,linkedin.com/in/johnsmith
+noatsign.acme.com,Ned Nolan,Lead411,Analyst,Acme Corp,Manufacturing,USA,
+missingdot@acme,Mia Miller,Lead411,Analyst,Acme Corp,Manufacturing,USA,
+mary@gmail.com,Mary Jones,Lead411,Consultant,Freelance,Consulting,USA,
+bob@yahoo.com,Bob Brown,Lead411,Consultant,Freelance,Consulting,USA,
+alice@example.io,Alice White,Lead411,Founder,Example Inc,Technology,USA,
+carl@example.net,Carl Green,Lead411,Founder,Example Inc,Technology,USA,
+dave@mailinator.com,Dave Black,Lead411,Tester,QA Labs,Technology,USA,
+erin@spamtrap.com,Erin Grey,Lead411,Tester,QA Labs,Technology,USA,
+admin@acme.com,Admin User,Lead411,IT Support,Acme Corp,Technology,USA,
+jsmith2@acme.com,Jamie Smith,Lead411,Marketing Intern,Acme Corp,Marketing,USA,
+hr@staffingco.com,HR Team,Lead411,Recruiter,Staffing Co,Staffing,USA,
+x@acme.com,X Guy,Lead411,Engineer,Acme Corp,Engineering,USA,
+12345@acme.com,Numeric User,Lead411,Engineer,Acme Corp,Engineering,USA,
+sales@sales.com,Sales Team,Lead411,Sales Rep,Sales LLC,Sales,USA,
+lisa.tan@globalcorp.org,Lisa Tan,Lead411,VP,Global Corp,Finance,Singapore,linkedin.com/in/lisatan
+mo.hassan@school.edu,Mo Hassan,Lead411,Professor,State University,Education,USA,
+r.patel@agency.us,R Patel,Lead411,Director,Federal Agency,Government,USA,

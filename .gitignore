@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# Backend secrets / local config
+backend/.env
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# Local data (uploads/jobs/reports/backups/logs) - never committed
+data/uploads/*
+data/jobs/*
+data/reports/*
+data/backups/*
+data/logs/*
+!data/uploads/.gitkeep
+!data/jobs/.gitkeep
+!data/reports/.gitkeep
+!data/backups/.gitkeep
+!data/logs/.gitkeep
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
