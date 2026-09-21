@@ -45,3 +45,19 @@ def test_protected_endpoints_require_authentication():
     with TestClient(app) as client:
         response = client.get("/api/jobs")
         assert response.status_code == 401
+
+
+def test_db_dependent_endpoint_returns_friendly_error_not_a_stack_trace():
+    """
+    Regression test: /api/auth/login goes through the SQLAlchemy get_db()
+    dependency (not the raw_connection() wrapper that /api/health uses),
+    so a SQL Server outage there previously leaked a raw 500 + Python
+    traceback to the client. The global DBAPIError handler in main.py
+    must turn this into a clean, human-readable 503 instead (section 61).
+    """
+    with TestClient(app, raise_server_exceptions=False) as client:
+        response = client.post("/api/auth/login", json={"username": "admin", "password": "x"})
+        assert response.status_code == 503
+        body = response.json()
+        assert "Traceback" not in body["detail"]
+        assert "SQL Server connection failed" in body["detail"]

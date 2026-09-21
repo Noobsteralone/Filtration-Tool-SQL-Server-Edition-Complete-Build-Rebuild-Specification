@@ -9,12 +9,19 @@ from __future__ import annotations
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from sqlalchemy.exc import DBAPIError
 
 from app.config import get_settings
 from app.database import DatabaseConnectionError, init_db
 from app.routers import activity_logs, auth, jobs, master, reference, settings, users
+
+_FRIENDLY_DB_ERROR = (
+    "SQL Server connection failed. Please verify SQL Server is running, the server "
+    "name and database are correct, and the ODBC driver is installed, then try again."
+)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger("ft.main")
@@ -69,6 +76,17 @@ def create_app() -> FastAPI:
             "database_ready": app_state["db_ready"],
             "database_error": app_state["db_error"],
         }
+
+    # Section 61: any request that fails because SQL Server itself is
+    # unreachable (whether through the SQLAlchemy `get_db()` dependency or
+    # a raw pyodbc call) must return a clean, human-readable error to the
+    # client -- never a raw stack trace. Full detail always still goes to
+    # the log.
+    @application.exception_handler(DBAPIError)
+    @application.exception_handler(DatabaseConnectionError)
+    async def handle_database_error(request: Request, exc: Exception) -> JSONResponse:
+        logger.exception("Database error while handling %s %s", request.method, request.url.path)
+        return JSONResponse(status_code=503, content={"detail": _FRIENDLY_DB_ERROR})
 
     return application
 
